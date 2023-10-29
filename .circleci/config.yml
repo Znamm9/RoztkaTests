@@ -6,17 +6,16 @@ version: 2.1
 # See: https://circleci.com/docs/configuration-reference/#jobs
 jobs:
   build:
-    executor: default-executor
+    docker:
+      -image: maven:3.9.5-amazoncorretto-11-debian
     steps:
       - checkout  # Check out your source code
-
-      - run:
-          name: Build Docker Image
-          command: docker build -t tests .
-
-      - run:
-          name: Run Docker Container
-          command: docker run tests
+      - run: apt-get update
+      - run: apt-get install -y wget
+      - run: wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+      - run: apt-get install -y ./google-chrome-stable_current_amd64.deb
+      - run: apt-get install -y xvfb --fix-missing
+      - run: mvn test
 
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
