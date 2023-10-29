@@ -1,9 +1,10 @@
-package pageObjects;
+package pageObjects.rozetka;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import pageObjects.BasePage;
 
-public class LoginPage extends BasePage{
+public class LoginPage extends BasePage {
 
     String pageURL = "https://rozetka.com.ua/ua/";
 

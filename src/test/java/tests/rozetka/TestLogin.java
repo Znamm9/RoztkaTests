@@ -1,10 +1,11 @@
-package tests;
+package tests.rozetka;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pageObjects.LoginPage;
+import pageObjects.rozetka.LoginPage;
+import tests.TestInit;
 
-public class TestLogin extends TestInit{
+public class TestLogin extends TestInit {
 
     @Test
     public void checkLoginForm(){
