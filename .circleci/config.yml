@@ -5,27 +5,23 @@ version: 2.1
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/configuration-reference/#jobs
 jobs:
-  all-tests:
-    # Specify the execution environment. You can specify an image from Docker Hub or use one of our convenience images from CircleCI's Developer Hub.
-    # See: https://circleci.com/docs/configuration-reference/#executor-job
-    docker:
-      - image: cimg/base:stable
-    # Add steps to the job
-    # See: https://circleci.com/docs/configuration-reference/#steps
+  build:
+    executor: default-executor
     steps:
-      - build image
+      - checkout  # Check out your source code
+
       - run:
-          name: "build image"
-          command: "docker build -t tests ."
-      - spin tests
+          name: Build Docker Image
+          command: docker build -t tests .
+
       - run:
-          name: "mvn tests"
-          command: "docker run tests"
+          name: Run Docker Container
+          command: docker run tests
 
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
-workflows:
-  tests-workflow:
-    jobs:
-      - build image
-      - mvn tests
+#workflows:
+#  tests-workflow:
+#    jobs:
+#      - build image
+#      - mvn tests
