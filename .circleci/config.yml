@@ -4,10 +4,14 @@ version: 2.1
 
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/configuration-reference/#jobs
+executors:
+  default-executor:
+    docker:
+      - image: maven:3.9.5-amazoncorretto-11-debian
+
 jobs:
   build:
-    docker:
-      -image: maven:3.9.5-amazoncorretto-11-debian
+    executor: default-executor
     steps:
       - checkout  # Check out your source code
       - run: apt-get update
@@ -16,11 +20,3 @@ jobs:
       - run: apt-get install -y ./google-chrome-stable_current_amd64.deb
       - run: apt-get install -y xvfb --fix-missing
       - run: mvn test
-
-# Orchestrate jobs using workflows
-# See: https://circleci.com/docs/configuration-reference/#workflows
-#workflows:
-#  tests-workflow:
-#    jobs:
-#      - build image
-#      - mvn tests
